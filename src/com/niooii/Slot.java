@@ -4,12 +4,12 @@ public class Slot {
     // encapsulation too much work
     // players: 0, 1
     public final int row, col;
-    private boolean state;
+    private boolean state, taken;
     private int player;
     public Slot(int row, int col) {
         this.row = row;
         this.col = col;
-        this.state = false;
+        this.taken = false;
     }
 
     public void setState(boolean state){

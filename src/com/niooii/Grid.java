@@ -41,16 +41,26 @@ public class Grid {
                     System.out.print("| ");
                 if(grid[i][j].getState()){
                     if(grid[i][j].getPlayer() == 0)
-                        x = '⬤';
+                        x = '●';
                     else
-                        x = '◉';
+                        x = '◌';
                 }
                 else
-                    x = '○';
+                    x = ' ';
                 System.out.print(x + " | ");
             }
             System.out.println();
         }
+    }
+
+    public boolean isFull(){
+        for(Slot[] x : grid){
+            for(Slot y : x){
+                if(!y.getState())
+                    return false;
+            }
+        }
+        return true;
     }
 
     public boolean checkAllHoz() {
@@ -97,23 +107,27 @@ public class Grid {
         return false;
     }
 
+    public boolean isFourRightDiagonal(int row, int col){
+        int count = 1;
+        for(int k = 0; k < 4; k++){
+            if(++col != grid[0].length && --row != -1 && grid[row+1][col-1].isValidAdjacent(grid[row][col])){
+                count++;
+                if(count == 4)
+                    return true;
+            } else {
+                count = 1;
+            }
+        }
+        return false;
+    }
+
     // implement checkAllLeftDiagonal()
     public boolean checkAllRightDiagonal() {
         int count = 1;
         for(int i = grid.length-1; i >= 3; i--){
             for(int j = 0; j <= grid[0].length - 4; j++){
-                System.out.println("count: " + count);
-                int tempI = i, tempJ = j;
-                for(int k = 0; k < 4; k++){
-                    if(++tempJ != grid[0].length && --tempI != -1 && grid[tempI][tempJ].isValidAdjacent(grid[tempI][tempJ])){
-                        count++;
-                        if(count == 4)
-                            return true;
-                    } else {
-                        count = 1;
-                    }
-                }
-                count = 1;
+                if(isFourRightDiagonal(i, j))
+                    return true;
             }
         }
         return false;

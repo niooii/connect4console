@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b247fd89-c989-4bc9-82d8-b9d044534e82" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/connectfourprojectthing.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/niooii/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/niooii/Grid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/niooii/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/niooii/Slot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/niooii/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/niooii/YouTried.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Slot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +41,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm"
+    "dart.analysis.tool.window.visible": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -78,6 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1684881079121</updated>
       <workItem from="1684881080446" duration="16633000" />
+      <workItem from="1684938615566" duration="2271000" />
     </task>
     <servers />
   </component>
