@@ -1,7 +1,7 @@
 package com.niooii;
 
-public class SegmentationFault extends Exception {
-    public SegmentationFault(String errormsg){
+public class YouTried extends Exception {
+    public YouTried(String errormsg){
         super(errormsg);
     }
 }

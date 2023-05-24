@@ -1,15 +1,14 @@
-public class Utils {
-    public void printGrid(boolean[][] grid){
-        char x = 'X';
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[0].length; j++){
-                if(j == 0)
-                    System.out.println("| ");
-                if(grid[i][j])
-                    x = '⬤';
-                else
-                    x = 'X';
-            }
-        }
-    }
+package com.niooii;
+//◉⬤
+public class Utils { //USELESS CLASS
+//    public void printGrid(Grid gridObject){
+//        boolean[][] grid = gridObject.grid;
+//        char x = 'X';
+//
+//        // unimportant
+////        String bot = "";
+////
+////        System.out.println("---------------------");
+//    }
+
 }
