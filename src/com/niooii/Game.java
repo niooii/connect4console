@@ -13,15 +13,19 @@ public class Game {
     Grid grid = new Grid(rows, cols);
     public Game(GameType type) throws Exception {
         switch(type){
-            case LOCALMULTIPLAYER -> LMMainLoop();
-            case SIMULATION -> simulateGame(true);
-            case MULTISIMULATION -> {
+            case LOCALMULTIPLAYER:
+                LMMainLoop();
+                break;
+            case SIMULATION:
+                simulateGame(true);
+                break;
+            case MULTISIMULATION:
                 System.out.println("How many games?");
                 simulationCounts(sc.nextInt());
-            }
-            case ONLINEMULTIPLAYER -> {
+                break;
+            case ONLINEMULTIPLAYER:
                 OMMainLoop();
-            }
+                break;
         }
     }
 
@@ -67,10 +71,6 @@ public class Game {
             System.out.println();
             grid.printGrid();
             System.out.println();
-            if(player == 0)
-                player = 1;
-            else
-                player = 0;
         }
     }
 
