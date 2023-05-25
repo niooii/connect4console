@@ -3,6 +3,7 @@ package com.niooii;
 public class Grid {
     //◉⬤
     public Slot[][] grid;
+    private int winner = -1;
 
     public Grid(int rows, int cols){
         grid = new Slot[rows][cols];
@@ -41,9 +42,9 @@ public class Grid {
                     System.out.print("| ");
                 if(grid[i][j].getState()){
                     if(grid[i][j].getPlayer() == 0)
-                        x = '●';
-                    else
                         x = '◌';
+                    else
+                        x = '●';
                 }
                 else
                     x = ' ';
@@ -76,8 +77,10 @@ public class Grid {
         for(int i = 0; i < grid[0].length - 1; i++){
             if(grid[row][i].isValidAdjacent(grid[row][i+1])){
                 count++;
-                if(count == 4)
+                if(count == 4) {
+                    winner = grid[row][i].getPlayer();
                     return true;
+                }
             } else {
                 count = 1;
             }
@@ -98,8 +101,10 @@ public class Grid {
         for(int i = 0; i < grid.length - 1; i++){
             if(grid[i][col].isValidAdjacent(grid[i+1][col])){
                 count++;
-                if(count == 4)
+                if(count == 4) {
+                    winner = grid[i][col].getPlayer();
                     return true;
+                }
             } else {
                 count = 1;
             }
@@ -112,8 +117,10 @@ public class Grid {
         for(int k = 0; k < 4; k++){
             if(++col != grid[0].length && --row != -1 && grid[row+1][col-1].isValidAdjacent(grid[row][col])){
                 count++;
-                if(count == 4)
+                if(count == 4) {
+                    winner = grid[row][col].getPlayer();
                     return true;
+                }
             } else {
                 count = 1;
             }
@@ -131,5 +138,12 @@ public class Grid {
             }
         }
         return false;
+    }
+
+    public int updAndGetWinner(){
+        checkAllHoz();
+        checkAllVertical();
+        checkAllRightDiagonal();
+        return winner;
     }
 }

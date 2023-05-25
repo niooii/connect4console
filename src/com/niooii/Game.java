@@ -2,6 +2,8 @@ package com.niooii;
 import com.niooii.*;
 
 import java.util.Scanner;
+import com.niooii.GameType;
+import com.niooii.onlinestuff.OnlinePlayer;
 
 public class Game {
     final int rows = 6;
@@ -9,20 +11,60 @@ public class Game {
     Scanner sc = new Scanner(System.in);
     // PLAYERS: 0, 1
     Grid grid = new Grid(rows, cols);
-    public Game() throws Exception {
-//          simulationCounts(100);
+    public Game(GameType type) throws Exception {
+        switch(type){
+            case LOCALMULTIPLAYER -> LMMainLoop();
+            case SIMULATION -> simulateGame(true);
+            case MULTISIMULATION -> {
+                System.out.println("How many games?");
+                simulationCounts(sc.nextInt());
+            }
+            case ONLINEMULTIPLAYER -> {
+                OMMainLoop();
+            }
+        }
+    }
+
+    int LMMainLoop() throws Exception {
         grid.printGrid();
         System.out.println();
         int player = 0;
+        int winner = -1;
         while(true){
-            if(grid.checkAllHoz() || grid.checkAllVertical() || grid.checkAllRightDiagonal()){
-                System.out.println("someone won idk");
-                System.exit(0);
+            if((winner = grid.updAndGetWinner()) != -1){
+                System.out.println("Player " + winner + " wins!");
+                return 0;
             }
-            System.out.print("Enter a column: ");
+            System.out.print("Player " + player + " || Enter a column: ");
             while(!grid.placeThingy(player, sc.nextInt())){
-                System.out.print("Enter a valid column: ");
+                System.out.print("Enter an empty column: ");
             }
+            System.out.println();
+            grid.printGrid();
+            System.out.println();
+            if(player == 0)
+                player = 1;
+            else
+                player = 0;
+        }
+    }
+
+    int OMMainLoop() throws Exception {
+        OnlinePlayer op = new OnlinePlayer();
+        grid.printGrid();
+        System.out.println();
+        int player = 0;
+        int winner = -1;
+        while(true){
+            if((winner = grid.updAndGetWinner()) != -1){
+                System.out.println("Player " + winner + " wins!");
+                return 0;
+            }
+            System.out.print("Player " + player + " || Enter a column: ");
+            while(!grid.placeThingy(player, sc.nextInt())){
+                System.out.print("Enter an empty column: ");
+            }
+            System.out.println();
             grid.printGrid();
             System.out.println();
             if(player == 0)
@@ -39,10 +81,11 @@ public class Game {
             System.out.println();
         }
         int player = 0;
+        int winner = -1;
         while(true){
-            if(grid.checkAllRightDiagonal()){
+            if((winner = grid.updAndGetWinner()) != -1){
                 if(printOutput){
-                    System.out.println("someone won idk");
+                    System.out.println("Player " + winner + " wins!");
                 }
                 return 0;
             }
@@ -59,7 +102,7 @@ public class Game {
                 col = (int)(Math.random() * cols) + 1;
                 if(printOutput){
                     System.out.println("regenerating column...");
-                    System.out.println("new column: " + col);
+                    System.out.println("new column: " + col + "\n");
                 }
             }
             if(printOutput){
