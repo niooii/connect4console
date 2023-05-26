@@ -34,6 +34,9 @@ public class Main {
                 case 4:
                     new Game(GameType.SIMULATION, rows, cols, winningNum);
                     break;
+                case 5:
+                    new Game(GameType.MULTISIMULATION, rows, cols, winningNum);
+                    break;
                 case 6:
                     System.out.print("How many rows? ");
                     rows = sc.nextInt();

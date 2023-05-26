@@ -59,6 +59,10 @@ public class Grid {
             }
             printWriter.println();
         }
+        StringBuilder bottomline = new StringBuilder();
+        for(int i = 0; i < grid[0].length * 4 + 1; i++)
+            bottomline.append('-');
+        printWriter.println(bottomline);
     }
 
     public boolean isFull(){
@@ -86,6 +90,8 @@ public class Grid {
                 count++;
                 if(count == winningNum) {
                     winner = grid[row][i].getPlayer();
+                    System.out.println("win at row " + row + ", col " + i + ".");
+                    System.out.println("won by: horizontal");
                     return true;
                 }
             } else {
@@ -110,6 +116,8 @@ public class Grid {
                 count++;
                 if(count == winningNum) {
                     winner = grid[i][col].getPlayer();
+                    System.out.println("win at row " + i + ", col " + col + ".");
+                    System.out.println("won by: vertical");
                     return true;
                 }
             } else {
@@ -127,6 +135,8 @@ public class Grid {
                     count++;
                     if (count == winningNum) {
                         winner = grid[row][col].getPlayer();
+                        System.out.println("win at row " + row + ", col " + col + ".");
+                        System.out.println("won by: right diagonal");
                         return true;
                     }
                 }
@@ -140,7 +150,7 @@ public class Grid {
     // implement checkAllLeftDiagonal()
     public boolean checkAllRightDiagonal() {
         for(int i = grid.length-1; i >= winningNum - 1; i--){
-            for(int j = 0; j <= grid[0].length - 4; j++){
+            for(int j = 0; j <= grid[0].length - winningNum; j++){
                 if(isFourRightDiagonal(i, j))
                     return true;
             }
@@ -155,6 +165,8 @@ public class Grid {
                 count++;
                 if(count == winningNum) {
                     winner = grid[row][col].getPlayer();
+                    System.out.println("win at row " + row + ", col " + col + ".");
+                    System.out.println("won by: left diagonal");
                     return true;
                 }
             } else {
@@ -180,6 +192,10 @@ public class Grid {
         checkAllVertical();
         checkAllRightDiagonal();
         checkAllLeftDiagonal();
+        return winner;
+    }
+
+    public int getWinner(){
         return winner;
     }
 }
