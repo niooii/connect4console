@@ -6,9 +6,13 @@ public class Grid {
     //◉⬤
     public Slot[][] grid;
     private int winner = -1;
+    private int winningNum;
     PrintWriter printWriter = new PrintWriter(System.out,true);
+    public static final char playerZeroChar = 'X';//◌;
+    public static final char playerOneChar = 'O';//●;
 
-    public Grid(int rows, int cols){
+    public Grid(int rows, int cols, int winningNum){
+        this.winningNum = winningNum;
         grid = new Slot[rows][cols];
         for(int i = 0; i < grid.length; i++)
             for(int j = 0; j < grid[0].length; j++)
@@ -45,9 +49,9 @@ public class Grid {
                     printWriter.print("| ");
                 if(grid[i][j].getState()){
                     if(grid[i][j].getPlayer() == 0)
-                        x = 'X';//◌
+                        x = playerZeroChar;//◌
                     else
-                        x = 'O';//●
+                        x = playerOneChar;//●
                 }
                 else
                     x = ' ';
@@ -80,7 +84,7 @@ public class Grid {
         for(int i = 0; i < grid[0].length - 1; i++){
             if(grid[row][i].isValidAdjacent(grid[row][i+1])){
                 count++;
-                if(count == 4) {
+                if(count == winningNum) {
                     winner = grid[row][i].getPlayer();
                     return true;
                 }
@@ -104,7 +108,7 @@ public class Grid {
         for(int i = 0; i < grid.length - 1; i++){
             if(grid[i][col].isValidAdjacent(grid[i+1][col])){
                 count++;
-                if(count == 4) {
+                if(count == winningNum) {
                     winner = grid[i][col].getPlayer();
                     return true;
                 }
@@ -117,10 +121,39 @@ public class Grid {
 
     public boolean isFourRightDiagonal(int row, int col){
         int count = 1;
-        for(int k = 0; k < 4; k++){
-            if(++col != grid[0].length && --row != -1 && grid[row+1][col-1].isValidAdjacent(grid[row][col])){
+        for(int k = 0; k < winningNum; k++){
+            if(++col < grid[0].length && --row > -1){
+                if(grid[row+1][col-1].isValidAdjacent(grid[row][col])) {
+                    count++;
+                    if (count == winningNum) {
+                        winner = grid[row][col].getPlayer();
+                        return true;
+                    }
+                }
+            } else {
+                count = 1;
+            }
+        }
+        return false;
+    }
+
+    // implement checkAllLeftDiagonal()
+    public boolean checkAllRightDiagonal() {
+        for(int i = grid.length-1; i >= winningNum - 1; i--){
+            for(int j = 0; j <= grid[0].length - 4; j++){
+                if(isFourRightDiagonal(i, j))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFourLeftDiagonal(int row, int col){
+        int count = 1;
+        for(int k = 0; k < winningNum; k++){
+            if(--col > -1 && --row > -1 && grid[row+1][col+1].isValidAdjacent(grid[row][col])){
                 count++;
-                if(count == 4) {
+                if(count == winningNum) {
                     winner = grid[row][col].getPlayer();
                     return true;
                 }
@@ -132,11 +165,10 @@ public class Grid {
     }
 
     // implement checkAllLeftDiagonal()
-    public boolean checkAllRightDiagonal() {
-        int count = 1;
-        for(int i = grid.length-1; i >= 3; i--){
-            for(int j = 0; j <= grid[0].length - 4; j++){
-                if(isFourRightDiagonal(i, j))
+    public boolean checkAllLeftDiagonal() {
+        for(int i = grid.length-1; i >= winningNum - 1; i--){
+            for(int j = winningNum - 1; j <= grid[0].length - 1; j++){
+                if(isFourLeftDiagonal(i, j))
                     return true;
             }
         }
@@ -147,6 +179,7 @@ public class Grid {
         checkAllHoz();
         checkAllVertical();
         checkAllRightDiagonal();
+        checkAllLeftDiagonal();
         return winner;
     }
 }

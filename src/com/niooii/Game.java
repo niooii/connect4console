@@ -6,12 +6,15 @@ import com.niooii.GameType;
 import com.niooii.onlinestuff.OnlinePlayer;
 
 public class Game {
-    final int rows = 6;
-    final int cols = 7;
+    final int rows;
+    final int cols;
     Scanner sc = new Scanner(System.in);
     // PLAYERS: 0, 1
-    Grid grid = new Grid(rows, cols);
-    public Game(GameType type) throws Exception {
+    Grid grid;
+    public Game(GameType type, int rows, int cols, int winningNum) throws Exception {
+        this.rows = rows;
+        this.cols = cols;
+        grid = new Grid(rows, cols, winningNum);
         switch(type){
             case LOCALMULTIPLAYER:
                 LMMainLoop();
@@ -75,20 +78,25 @@ public class Game {
             }
             if(grid.isFull()){
                 if(printOutput){
-                    System.out.println("tied");
+                    System.out.println("It's a tie...");
                 }
                 return 1;
             }
             int col = (int)(Math.random() * cols) + 1;
-            if(printOutput)
-                System.out.println("Player " + player + ", column " + col + "\n");
             while(!grid.placeThingy(player, col)){
                 col = (int)(Math.random() * cols) + 1;
-                if(printOutput){
-                    System.out.println("regenerating column...");
-                    System.out.println("new column: " + col + "\n");
-                }
+//                if(printOutput){
+////                    System.out.println("regenerating column...");
+////                    System.out.println("new column: " + col + "\n");
+//                }
             }
+            char playerChar;
+            if(player == 0)
+                playerChar = Grid.playerZeroChar;
+            else
+                playerChar = Grid.playerOneChar;
+            if(printOutput)
+                System.out.println("Player " + player + " (" + playerChar + "), column " + col + "\n");
             if(printOutput){
                 grid.printGrid();
                 System.out.println();

@@ -19,14 +19,28 @@ public class Main {
         printModes();
 
         GameType type;
+        int rows = 6;
+        int cols = 7;
+        int winningNum = 4;
         Scanner sc= new Scanner(System.in);
         while(true){
             switch(sc.nextInt()){
                 case 1:
-                    new Game(GameType.LOCALMULTIPLAYER);
+                    new Game(GameType.LOCALMULTIPLAYER, rows, cols, winningNum);
                     break;
                 case 2:
-                    new Game(GameType.ONLINEMULTIPLAYER);
+                    new Game(GameType.ONLINEMULTIPLAYER, rows, cols, winningNum);
+                    break;
+                case 4:
+                    new Game(GameType.SIMULATION, rows, cols, winningNum);
+                    break;
+                case 6:
+                    System.out.print("How many rows? ");
+                    rows = sc.nextInt();
+                    System.out.print("How many columns? ");
+                    cols = sc.nextInt();
+                    System.out.print("How many in a row to win? ");
+                    winningNum = sc.nextInt();
                     break;
             }
             printModes();
@@ -34,7 +48,7 @@ public class Main {
     }
 
     private static void printModes() {
-        System.out.println("-------------------------------");
+        System.out.println("\n-------------------------------");
         System.out.println("           MAIN MENU");
         System.out.println("-------------------------------");
         System.out.println("1: Local Multi-player (2-player)");
@@ -42,6 +56,7 @@ public class Main {
         System.out.println("3: Single-player (play against computer)");
         System.out.println("4: Simulate Game");
         System.out.println("5: Simulate Multiple");
+        System.out.println("6: Edit game parameters");
         System.out.println("note: all simulations have completely random placements.");
     }
 
