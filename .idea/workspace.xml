@@ -10,6 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b247fd89-c989-4bc9-82d8-b9d044534e82" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/niooii/onlinestuff/OnlinePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/onlinestuff/OnlinePlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -31,6 +31,9 @@ public class Main {
                 case 2:
                     new Game(GameType.ONLINEMULTIPLAYER, rows, cols, winningNum);
                     break;
+                case 3:
+                    System.out.println("Not yet implemented.");
+                    break;
                 case 4:
                     new Game(GameType.SIMULATION, rows, cols, winningNum);
                     break;

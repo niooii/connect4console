@@ -99,6 +99,7 @@ public class OnlinePlayer {
     String opponent;
     public OnlinePlayer() throws IOException {
         try{
+            //this is my ip, don't ddos me please
             sock=new Socket("96.246.237.185",8811);
             din=new DataInputStream(sock.getInputStream());
             dout=new DataOutputStream(sock.getOutputStream());
@@ -128,6 +129,8 @@ public class OnlinePlayer {
     public void HandleMoveAndUpdate(int player, int col) throws Exception {
         grid.placeThingy(player, col);
         grid.printGrid();
+        //error happens here sometimes i have no clue why. i can't replicate it myself
+        //hi ms qiu
     }
 
     public void waitingLoop() throws IOException {
@@ -140,9 +143,9 @@ public class OnlinePlayer {
                     break;
                 }
                 if (str.toLowerCase().startsWith("challenge")) {
-                    //break from loop early so shit doesnt SEND
+                    //wtf is this
                     if (!str.contains(" ") || str.substring(str.indexOf(" ") + 1).length() == 0) {
-                        System.out.println("enter an id bruh");
+                        System.out.println("enter a player's uid...");
                         return;
                     }
                     int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
@@ -151,7 +154,7 @@ public class OnlinePlayer {
                     sendString("VIEW");
                 } else if (str.toLowerCase().startsWith("accept")) {
                     if (!str.contains(" ")) {
-                        System.out.println("enter an id bruh");
+                        System.out.println("enter a player's uid...");
                     } else {
                         int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
                         sendString("ACCEPT|" + id);
@@ -195,18 +198,5 @@ public class OnlinePlayer {
 
     public String getStringResponse() throws IOException {
         return din.readUTF();
-    }
-
-    public int getMoveResponse() throws IOException {
-        return Integer.parseInt(din.readUTF());
-    }
-
-    public String formatMoveData(int ID, int column){
-        return ID + "|" + column;
-    }
-
-    public void destroy() throws IOException {
-        dout.close();
-        sock.close();
     }
 }
