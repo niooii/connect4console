@@ -10,13 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b247fd89-c989-4bc9-82d8-b9d044534e82" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/connectfourprojectthing_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/niooii/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/Server/Server2.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/niooii/onlinestuff/OnlinePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/onlinestuff/OnlinePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/niooii/onlinestuff/SocketTesting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/onlinestuff/SocketTesting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,12 +52,13 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
+    "extract.method.default.visibility": "private",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",

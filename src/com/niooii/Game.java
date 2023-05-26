@@ -55,23 +55,7 @@ public class Game {
 
     int OMMainLoop() throws Exception {
         OnlinePlayer op = new OnlinePlayer();
-        grid.printGrid();
-        System.out.println();
-        int player = 0;
-        int winner = -1;
-        while(true){
-            if((winner = grid.updAndGetWinner()) != -1){
-                System.out.println("Player " + winner + " wins!");
-                return 0;
-            }
-            System.out.print("Player " + player + " || Enter a column: ");
-            while(!grid.placeThingy(player, sc.nextInt())){
-                System.out.print("Enter an empty column: ");
-            }
-            System.out.println();
-            grid.printGrid();
-            System.out.println();
-        }
+        return 0;
     }
 
     // return val of 0 = someone wins, 1 = tie;

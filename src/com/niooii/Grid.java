@@ -1,9 +1,12 @@
 package com.niooii;
 
+import java.io.PrintWriter;
+
 public class Grid {
     //◉⬤
     public Slot[][] grid;
     private int winner = -1;
+    PrintWriter printWriter = new PrintWriter(System.out,true);
 
     public Grid(int rows, int cols){
         grid = new Slot[rows][cols];
@@ -39,18 +42,18 @@ public class Grid {
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
                 if(j == 0)
-                    System.out.print("| ");
+                    printWriter.print("| ");
                 if(grid[i][j].getState()){
                     if(grid[i][j].getPlayer() == 0)
-                        x = '◌';
+                        x = 'X';//◌
                     else
-                        x = '●';
+                        x = 'O';//●
                 }
                 else
                     x = ' ';
-                System.out.print(x + " | ");
+                printWriter.print(x + " | ");
             }
-            System.out.println();
+            printWriter.println();
         }
     }
 

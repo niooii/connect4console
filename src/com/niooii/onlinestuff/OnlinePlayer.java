@@ -12,18 +12,20 @@ public class OnlinePlayer {
     final int rows = 6;
     final int cols = 7;
     Grid grid;
-    class ChallengeWaiter extends Thread {
+    String print = "";
+    int playernum;
+    class ResponseReciever extends Thread {
         @Override
         public void run(){
             try {
-                mainLoop();
+                recvLoop();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
         //recieve responses from server
-        void mainLoop() throws Exception {
+        void recvLoop() throws Exception {
             String str;
             while(true){
                 if((str = getStringResponse()) != null){
@@ -31,8 +33,53 @@ public class OnlinePlayer {
                         isIdle = false;
                     } else if(str.startsWith("SETOPPONENT")){
                         opponent = str.substring(str.indexOf("|") + 1);
+                    } else if(str.startsWith("GAME_ABORTED")){
+                        System.out.println("game has been aborted...\nPress [enter] to continue.");
+                        grid = null;
+                        opponent = null;
+                        isIdle = true;
                     } else if(str.startsWith("MOV")){
                         HandleMoveAndUpdate(parsePlayer(str), parseColumn(str));
+                        int winner = -1;
+                        // i have no idea why this logic works, trial and error!
+                        boolean stop = grid.isFull() || (winner = grid.updAndGetWinner()) != -1;
+                        if(stop){
+                            if(grid.isFull()){
+                                sendString("FULL");
+                            } else {
+                                if(winner == playernum){
+                                    sendString("WINNER|" + ID);
+                                }
+                            }
+                            grid = null;
+                            opponent = null;
+                            isIdle = true;
+                        }
+                        char type;
+                        /* why does this logic work?
+                        WHO KNOWS? not me. and I don't particularly care. */
+                        if(playernum == 1){
+                            if(playernum == parsePlayer(str))
+                                type = 'X';
+                            else
+                                type = 'O';
+                        } else {
+                            if(playernum == parsePlayer(str))
+                                type = 'O';
+                            else
+                                type = 'X';
+                        }
+                        if(parsePlayer(str) == playernum)
+                            print = opponent + "'s turn (" + type + "): ";
+                        else
+                            print = "your turn (" + type + "): ";
+                        if(!stop){
+                            System.out.println();
+                            System.out.print(print);
+                            System.out.println();
+                        }
+                    } else if(str.startsWith("SETIGID")){
+                        playernum = Integer.parseInt(str.substring(str.indexOf("|") + 1));
                     } else {
                         System.out.println(str);
                     }
@@ -41,23 +88,29 @@ public class OnlinePlayer {
         }
     }
     int ID;
-    Socket sock=new Socket("localhost",8811);
-    DataInputStream din=new DataInputStream(sock.getInputStream());
-    DataOutputStream dout=new DataOutputStream(sock.getOutputStream());
+    Socket sock;
+    DataInputStream din;
+    DataOutputStream dout;
     boolean isIdle = true;
     Scanner sc = new Scanner(System.in);
-    ChallengeWaiter waiter = new ChallengeWaiter();
+    ResponseReciever waiter = new ResponseReciever();
     String opponent;
-    public OnlinePlayer() throws IOException, InterruptedException {
-        while(!sock.isConnected()){
-            sleep(400);
-            System.out.println("trying to connect...");
+    public OnlinePlayer() throws IOException {
+        try{
+            sock=new Socket("localhost",8811);
+            din=new DataInputStream(sock.getInputStream());
+            dout=new DataOutputStream(sock.getOutputStream());
+        } catch (Exception e){
+            System.out.println("Could not connect to server: ");
+            System.out.println(e);
+            return;
         }
+        System.out.println("\nconnected to server!");
         System.out.print("Enter your display name: ");
         sendString(sc.nextLine());
-        System.out.println(getStringResponse());
+//        System.out.println(getStringResponse());
         ID = Integer.parseInt(getStringResponse());
-        System.out.println("Your unique ID: " + ID);
+        System.out.println();
         waiter.start();
         waitingLoop();
     }
@@ -82,12 +135,11 @@ public class OnlinePlayer {
             try {
                 str = sc.nextLine();
                 if (!isIdle) {
-                    System.out.println("started game with " + opponent);
                     break;
                 }
                 if (str.toLowerCase().startsWith("challenge")) {
                     //break from loop early so shit doesnt SEND
-                    if (!str.contains(" ")) {
+                    if (!str.contains(" ") || str.substring(str.indexOf(" ") + 1).length() == 0) {
                         System.out.println("enter an id bruh");
                         return;
                     }
@@ -98,10 +150,10 @@ public class OnlinePlayer {
                 } else if (str.toLowerCase().startsWith("accept")) {
                     if (!str.contains(" ")) {
                         System.out.println("enter an id bruh");
-                        return;
+                    } else {
+                        int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
+                        sendString("ACCEPT|" + id);
                     }
-                    int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
-                    sendString("ACCEPT|" + id);
                 } else {
                     sendWaitingData(str);
                 }
@@ -116,9 +168,11 @@ public class OnlinePlayer {
     public void GameLoop() throws IOException {
         grid = new Grid(rows, cols);
         grid.printGrid();
-        while(true){
-            System.out.print("enter a column to move in: ");
+        while(!isIdle){
             sendData(sc.nextLine());
+//            if(grid.updAndGetWinner() != -1){
+//                System.out.println("SOMEONE WON SOMEONE WON");
+//            }
         }
     }
 
@@ -152,6 +206,5 @@ public class OnlinePlayer {
     public void destroy() throws IOException {
         dout.close();
         sock.close();
-        this.destroy();
     }
 }
