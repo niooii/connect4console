@@ -125,13 +125,9 @@ public class OnlinePlayer {
         return Integer.parseInt(res.substring(res.indexOf(":") + 1, res.indexOf("|")));
     }
 
-    public void HandleMoveAndUpdate(int player, int col) {
-        try{
-            grid.placeThingy(player, col);
-            grid.printGrid();
-        } catch(Exception e){
-            System.out.println("exception gone eheheh");
-        }
+    public void HandleMoveAndUpdate(int player, int col) throws Exception {
+        grid.placeThingy(player, col);
+        grid.printGrid();
     }
 
     public void waitingLoop() throws IOException {
