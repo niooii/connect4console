@@ -97,7 +97,7 @@ public class OnlinePlayer {
     String opponent;
     public OnlinePlayer() throws IOException {
         try{
-            sock=new Socket("localhost",8811);
+            sock=new Socket("96.246.237.185",8811);
             din=new DataInputStream(sock.getInputStream());
             dout=new DataOutputStream(sock.getOutputStream());
         } catch (Exception e){
