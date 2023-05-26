@@ -90,7 +90,7 @@ public class Grid {
                 count++;
                 if(count == winningNum) {
                     winner = grid[row][i].getPlayer();
-                    System.out.println("win at row " + row + ", col " + i + ".");
+                    System.out.println("win at row " + (grid.length - row) + ", col " + (i + 1) + ".");
                     System.out.println("won by: horizontal");
                     return true;
                 }
@@ -116,7 +116,7 @@ public class Grid {
                 count++;
                 if(count == winningNum) {
                     winner = grid[i][col].getPlayer();
-                    System.out.println("win at row " + i + ", col " + col + ".");
+                    System.out.println("win at row " + (grid.length - i) + ", col " + (col + 1) + ".");
                     System.out.println("won by: vertical");
                     return true;
                 }
@@ -128,26 +128,27 @@ public class Grid {
     }
 
     public boolean isFourRightDiagonal(int row, int col){
+        StringBuilder debugLog = new StringBuilder("");
         int count = 1;
         for(int k = 0; k < winningNum; k++){
-            if(++col < grid[0].length && --row > -1){
-                if(grid[row+1][col-1].isValidAdjacent(grid[row][col])) {
-                    count++;
-                    if (count == winningNum) {
-                        winner = grid[row][col].getPlayer();
-                        System.out.println("win at row " + row + ", col " + col + ".");
-                        System.out.println("won by: right diagonal");
-                        return true;
-                    }
+            if(++col < grid[0].length && --row > -1 && grid[row+1][col-1].isValidAdjacent(grid[row][col])){
+                count++;
+                debugLog.append("row: ").append(row+1).append(", col: ").append(col-1).append(" is valid to ").append("row: ").append(row).append(", col: ").append(col).append("\n");
+                if (count == winningNum) {
+                    winner = grid[row][col].getPlayer();
+                    System.out.println("win at row " + (grid.length - row) + ", col " + (col + 1) + ".");
+                    System.out.println("won by: right diagonal");
+//                    System.out.println(debugLog);
+                    return true;
                 }
             } else {
+                debugLog.delete(0, debugLog.length());
                 count = 1;
             }
         }
         return false;
     }
 
-    // implement checkAllLeftDiagonal()
     public boolean checkAllRightDiagonal() {
         for(int i = grid.length-1; i >= winningNum - 1; i--){
             for(int j = 0; j <= grid[0].length - winningNum; j++){
@@ -159,24 +160,27 @@ public class Grid {
     }
 
     public boolean isFourLeftDiagonal(int row, int col){
+        StringBuilder debugLog = new StringBuilder("");
         int count = 1;
         for(int k = 0; k < winningNum; k++){
             if(--col > -1 && --row > -1 && grid[row+1][col+1].isValidAdjacent(grid[row][col])){
                 count++;
+                debugLog.append("row: ").append(row+1).append(", col: ").append(col-1).append(" is valid to ").append("row: ").append(row).append(", col: ").append(col).append("\n");
                 if(count == winningNum) {
                     winner = grid[row][col].getPlayer();
-                    System.out.println("win at row " + row + ", col " + col + ".");
+                    System.out.println("win at row " + (grid.length - row) + ", col " + (col + 1) + ".");
                     System.out.println("won by: left diagonal");
+//                    System.out.println(debugLog);
                     return true;
                 }
             } else {
+                debugLog.delete(0, debugLog.length());
                 count = 1;
             }
         }
         return false;
     }
 
-    // implement checkAllLeftDiagonal()
     public boolean checkAllLeftDiagonal() {
         for(int i = grid.length-1; i >= winningNum - 1; i--){
             for(int j = winningNum - 1; j <= grid[0].length - 1; j++){
