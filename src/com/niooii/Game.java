@@ -10,39 +10,30 @@ import static com.niooii.Grid.playerZeroChar;
 public class Game {
     final int rows;
     final int cols;
+    final int winningNum;
     Scanner sc = new Scanner(System.in);
     // PLAYERS: 0, 1
     Grid maingrid;
     public Game(GameType type, int rows, int cols, int winningNum) throws Exception {
         this.rows = rows;
         this.cols = cols;
+        this.winningNum = winningNum;
         maingrid = new Grid(rows, cols, winningNum);
         switch(type){
             case LOCALMULTIPLAYER:
                 LMMainLoop();
                 break;
-            case SIMULATION:
-                System.out.println("simulation finished with status " + simulateGame(true, new Grid(rows, cols, winningNum), false, false));
+            case SIMULATION_RANDOM:
+                System.out.println("simulation finished with status " + simulateGame(true, new Grid(rows, cols, winningNum), false, false, false));
                 break;
-            case MULTISIMULATION:
-                int wins = 0;
-                int ties = 0;
-                System.out.println("How many games?");
-                int games = sc.nextInt();
-                sc.nextLine();
-                System.out.println("Enter 1 if you'd like to exclude output for tied games. ");
-                boolean bool;
-                bool = sc.nextLine().equals("1");
-                for(int i = 0; i < games; i++){
-                    int res = simulateGame(false, new Grid(rows, cols, winningNum), bool, true);
-                    if(res == 0)
-                        wins++;
-                    else
-                        ties++;
-                }
-                System.out.println("\nSimulation of " + games + " game(s) has completed.");
-                System.out.println("Wins: " + wins);
-                System.out.println("Ties: " + ties);
+            case MULTISIMULATION_RANDOM:
+                simulateMultiple(false);
+                break;
+            case SIMULATION_COMPUTER:
+                System.out.println("simulation finished with status " + simulateGame(true, new Grid(rows, cols, winningNum), false, false, true));
+                break;
+            case MULTISIMULATION_COMPUTER:
+                simulateMultiple(true);
                 break;
             case ONLINEMULTIPLAYER:
                 OMMainLoop();
@@ -121,7 +112,7 @@ public class Game {
     }
 
     // return val of 0 = someone wins, 1 = tie;
-    int simulateGame(boolean printOutput, Grid grid, boolean onlyPrintWon, boolean multipleMode) throws Exception {
+    int simulateGame(boolean printOutput, Grid grid, boolean onlyPrintWon, boolean multipleMode, boolean isComputer) {
         if(printOutput){
             grid.printGrid();
             System.out.println();
@@ -148,7 +139,8 @@ public class Game {
                 }
                 return 1;
             }
-            int col = grid.getRandomFreeCol();
+            int col;
+            col = isComputer ? grid.getComputerMove() : grid.getRandomFreeCol();
             grid.placeThingy(player, col);
             char playerChar;
             if(player == 0)
@@ -167,5 +159,26 @@ public class Game {
                 player = 0;
             winner = grid.updAndGetWinner();
         }
+    }
+
+    void simulateMultiple(boolean isComputer){
+        int wins = 0;
+        int ties = 0;
+        System.out.println("How many games?");
+        int games = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Enter 1 if you'd like to exclude output for tied games. ");
+        boolean bool;
+        bool = sc.nextLine().equals("1");
+        for(int i = 0; i < games; i++){
+            int res = simulateGame(false, new Grid(rows, cols, winningNum), bool, true, isComputer);
+            if(res == 0)
+                wins++;
+            else
+                ties++;
+        }
+        System.out.println("\nSimulation of " + games + " game(s) has completed.");
+        System.out.println("Wins: " + wins);
+        System.out.println("Ties: " + ties);
     }
 }

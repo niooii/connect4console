@@ -35,12 +35,18 @@ public class Main {
                     new Game(GameType.SINGLEPLAYER, rows, cols, winningNum);
                     break;
                 case 4:
-                    new Game(GameType.SIMULATION, rows, cols, winningNum);
+                    new Game(GameType.SIMULATION_RANDOM, rows, cols, winningNum);
                     break;
                 case 5:
-                    new Game(GameType.MULTISIMULATION, rows, cols, winningNum);
+                    new Game(GameType.MULTISIMULATION_RANDOM, rows, cols, winningNum);
                     break;
                 case 6:
+                    new Game(GameType.SIMULATION_COMPUTER, rows, cols, winningNum);
+                    break;
+                case 7:
+                    new Game(GameType.MULTISIMULATION_COMPUTER, rows, cols, winningNum);
+                    break;
+                case 8:
                     System.out.print("How many rows? ");
                     int temprows = sc.nextInt();
                     while(temprows <= 1){
@@ -75,9 +81,10 @@ public class Main {
         System.out.println("1: Local Multi-player (2-player)");
         System.out.println("2: Online Multi-player (yes, this actually works)");
         System.out.println("3: Single-player (play against computer)");
-        System.out.println("4: Simulate Game");
-        System.out.println("5: Simulate Multiple");
-        System.out.println("6: Edit game parameters (Offline modes only)");
-        System.out.println("note: all simulations have completely random placements.");
+        System.out.println("4: Simulate Game (random)");
+        System.out.println("5: Simulate Multiple (random)");
+        System.out.println("6: Simulate Game (computer)");
+        System.out.println("7: Simulate Multiple (computer)");
+        System.out.println("8: Edit game parameters (Offline modes only)");
     }
 }

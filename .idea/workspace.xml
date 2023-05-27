@@ -11,14 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b247fd89-c989-4bc9-82d8-b9d044534e82" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/niooii/DumbComputerPlayer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/niooii/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/niooii/GameType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/GameType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/niooii/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Grid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/niooii/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/niooii/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/niooii/YouTried.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/niooii/onlinestuff/OnlinePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/niooii/onlinestuff/OnlinePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/niooii/onlinestuff/SocketTesting.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +121,7 @@
       <workItem from="1685127898560" duration="2100000" />
       <workItem from="1685136010369" duration="62000" />
       <workItem from="1685161366508" duration="21000" />
-      <workItem from="1685212359253" duration="15496000" />
+      <workItem from="1685212359253" duration="17068000" />
     </task>
     <servers />
   </component>

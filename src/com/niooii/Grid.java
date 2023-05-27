@@ -7,7 +7,7 @@ public class Grid {
     public Slot[][] grid;
     private int winner = -1;
     private final int winningNum;
-    private int lastMoveColIndex = -1;
+    private int lastMoveColIndex;
     private int colAboutToWinHoz = -1;
     private int colAboutToWinVert = -1;
     private boolean setToggle = false;
@@ -20,6 +20,7 @@ public class Grid {
 
     public Grid(int rows, int cols, int winningNum){
         this.winningNum = winningNum;
+        lastMoveColIndex = (int)(Math.random() * cols);
         grid = new Slot[rows][cols];
         for(int i = 0; i < grid.length; i++)
             for(int j = 0; j < grid[0].length; j++)
@@ -253,9 +254,6 @@ public class Grid {
              return colAboutToWinHoz + 1;
          } else if(colAboutToWinVert != -1){
              return colAboutToWinVert + 1;
-         }
-         if(col == 0){
-             System.out.println("its equal 0. why???");
          }
          int range;
          if(col == 0){
