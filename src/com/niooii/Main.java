@@ -32,7 +32,7 @@ public class Main {
                     new Game(GameType.ONLINEMULTIPLAYER, 6, 7, 4);
                     break;
                 case 3:
-                    System.out.println("Not yet implemented.");
+                    new Game(GameType.SINGLEPLAYER, rows, cols, winningNum);
                     break;
                 case 4:
                     new Game(GameType.SIMULATION, rows, cols, winningNum);
@@ -80,6 +80,4 @@ public class Main {
         System.out.println("6: Edit game parameters (Offline modes only)");
         System.out.println("note: all simulations have completely random placements.");
     }
-
-
 }

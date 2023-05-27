@@ -47,10 +47,13 @@ public class Game {
             case ONLINEMULTIPLAYER:
                 OMMainLoop();
                 break;
+            case SINGLEPLAYER:
+                againstComputerMainLoop();
+                break;
         }
     }
 
-    int LMMainLoop() throws Exception {
+    int LMMainLoop() {
         maingrid.printGrid();
         System.out.println();
         int player = 0;
@@ -75,12 +78,45 @@ public class Game {
     }
 
     int againstComputerMainLoop(){
-
-        return 0;
+        maingrid.printGrid();
+        System.out.println();
+        int player = 0;
+        int winner;
+        while(true){
+            if((winner = maingrid.updAndGetWinner()) != -1){
+                if(winner == 0){
+                    maingrid.printGrid();
+                    System.out.println("You win!");
+                } else {
+                    maingrid.printGrid();
+                    System.out.println("You lose :(");
+                }
+                return 0;
+            }
+            if(player == 1){
+                int cmove = maingrid.getComputerMove();
+                System.out.println("Computer goes: " + cmove);
+                while(!maingrid.placeThingy(player, cmove)){
+                    cmove = maingrid.getComputerMove();
+                }
+                System.out.println();
+                maingrid.printGrid();
+                System.out.println();
+            } else {
+                System.out.print("Enter a column: ");
+                while(!maingrid.placeThingy(player, sc.nextInt())){
+                    System.out.print("Please enter a valid column: ");
+                }
+            }
+            if(player == 0)
+                player = 1;
+            else
+                player = 0;
+        }
     }
 
     int OMMainLoop() throws Exception {
-        OnlinePlayer op = new OnlinePlayer();
+        new OnlinePlayer();
         return 0;
     }
 
@@ -112,14 +148,8 @@ public class Game {
                 }
                 return 1;
             }
-            int col = (int)(Math.random() * cols) + 1;
-            while(!grid.placeThingy(player, col)){
-                col = (int)(Math.random() * cols) + 1;
-//                if(printOutput){
-////                    System.out.println("regenerating column...");
-////                    System.out.println("new column: " + col + "\n");
-//                }
-            }
+            int col = grid.getRandomFreeCol();
+            grid.placeThingy(player, col);
             char playerChar;
             if(player == 0)
                 playerChar = playerZeroChar;
