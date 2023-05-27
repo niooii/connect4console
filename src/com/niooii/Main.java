@@ -29,7 +29,7 @@ public class Main {
                     new Game(GameType.LOCALMULTIPLAYER, rows, cols, winningNum);
                     break;
                 case 2:
-                    new Game(GameType.ONLINEMULTIPLAYER, rows, cols, winningNum);
+                    new Game(GameType.ONLINEMULTIPLAYER, 6, 7, 4);
                     break;
                 case 3:
                     System.out.println("Not yet implemented.");
@@ -42,11 +42,26 @@ public class Main {
                     break;
                 case 6:
                     System.out.print("How many rows? ");
-                    rows = sc.nextInt();
+                    int temprows = sc.nextInt();
+                    while(temprows <= 1){
+                        System.out.print("Must be above one: ");
+                        temprows = sc.nextInt();
+                    }
+                    rows = temprows;
                     System.out.print("How many columns? ");
-                    cols = sc.nextInt();
+                    int tempcols = sc.nextInt();
+                    while(tempcols <= 1){
+                        System.out.print("Must be above one: ");
+                        tempcols = sc.nextInt();
+                    }
+                    cols = tempcols;
                     System.out.print("How many in a row to win? ");
-                    winningNum = sc.nextInt();
+                    int tempwinningNum = sc.nextInt();
+                    while(tempwinningNum <= 1){
+                        System.out.print("Must be above one: ");
+                        tempwinningNum = sc.nextInt();
+                    }
+                    winningNum = tempwinningNum;
                     break;
             }
             printModes();
@@ -62,7 +77,7 @@ public class Main {
         System.out.println("3: Single-player (play against computer)");
         System.out.println("4: Simulate Game");
         System.out.println("5: Simulate Multiple");
-        System.out.println("6: Edit game parameters");
+        System.out.println("6: Edit game parameters (Offline modes only)");
         System.out.println("note: all simulations have completely random placements.");
     }
 

@@ -22,11 +22,10 @@ public class Grid {
         boolean successful = false;
         col -= 1;
         if(col >= grid[0].length || col < 0){
-            System.out.println("you are actually mentally ill thanks for playing");
-            throw new YouTried("Segmentation fault (core dumped)");
+            return false;
         }
         if(columnIsFull(col))
-            return successful;
+            return false;
         // loop through possible spots from the bottom up
         for(int i = grid.length - 1; i >= 0; i--){
             if(!grid[i][col].getState()){
@@ -37,6 +36,9 @@ public class Grid {
             }
         }
         return successful;
+    }
+    public boolean isValidMove(int col){
+        return col > 0 && col <= grid[0].length;
     }
     public boolean columnIsFull(int col) {
         return grid[0][col].getState();
@@ -199,7 +201,9 @@ public class Grid {
         return winner;
     }
 
-    public int getWinner(){
-        return winner;
+    public int getComputerMove(){// how do i implement minimax :(
+         int col = 1;
+
+         return col;
     }
 }

@@ -181,10 +181,15 @@ public class OnlinePlayer {
         grid = new Grid(rows, cols, 4);
         grid.printGrid();
         while(!isIdle){
-            sendData(sc.nextLine());
-//            if(grid.updAndGetWinner() != -1){
-//                System.out.println("SOMEONE WON SOMEONE WON");
-//            }
+            String move = sc.nextLine();
+            try{
+                if(grid.isValidMove(Integer.parseInt(move)))
+                    sendData(move);
+                else
+                    System.out.print("Please enter a valid column: ");
+            } catch(NumberFormatException e){
+                System.out.println("Could not parse column...");
+            }
         }
     }
 

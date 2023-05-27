@@ -22,7 +22,7 @@ public class Game {
                 LMMainLoop();
                 break;
             case SIMULATION:
-                System.out.println("simulation finished with status " + simulateGame(true, new Grid(rows, cols, winningNum), false));
+                System.out.println("simulation finished with status " + simulateGame(true, new Grid(rows, cols, winningNum), false, false));
                 break;
             case MULTISIMULATION:
                 int wins = 0;
@@ -34,7 +34,7 @@ public class Game {
                 boolean bool;
                 bool = sc.nextLine().equals("1");
                 for(int i = 0; i < games; i++){
-                    int res = simulateGame(false, new Grid(rows, cols, winningNum), bool);
+                    int res = simulateGame(false, new Grid(rows, cols, winningNum), bool, true);
                     if(res == 0)
                         wins++;
                     else
@@ -62,7 +62,7 @@ public class Game {
             }
             System.out.print("Player " + player + " || Enter a column: ");
             while(!maingrid.placeThingy(player, sc.nextInt())){
-                System.out.print("Enter an empty column: ");
+                System.out.print("Please enter a valid column: ");
             }
             System.out.println();
             maingrid.printGrid();
@@ -74,13 +74,18 @@ public class Game {
         }
     }
 
+    int againstComputerMainLoop(){
+
+        return 0;
+    }
+
     int OMMainLoop() throws Exception {
         OnlinePlayer op = new OnlinePlayer();
         return 0;
     }
 
     // return val of 0 = someone wins, 1 = tie;
-    int simulateGame(boolean printOutput, Grid grid, boolean onlyPrintWon) throws Exception {
+    int simulateGame(boolean printOutput, Grid grid, boolean onlyPrintWon, boolean multipleMode) throws Exception {
         if(printOutput){
             grid.printGrid();
             System.out.println();
@@ -90,7 +95,8 @@ public class Game {
         while(true){
 //            System.out.println(winner);
             if(winner != -1){
-                grid.printGrid();
+                if(multipleMode)
+                    grid.printGrid();
                 char temp;
                 if(winner == 0){
                     temp = playerZeroChar;
