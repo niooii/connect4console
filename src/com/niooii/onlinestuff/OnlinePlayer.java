@@ -1,14 +1,13 @@
 package com.niooii.onlinestuff;
 
 import com.niooii.Grid;
-import jdk.nashorn.internal.ir.BinaryNode;
-
 import java.io.*;
 import java.net.*;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
+import static com.niooii.Grid.playerOneChar;
+import static com.niooii.Grid.playerZeroChar;
 
 public class OnlinePlayer {
     final int rows = 6;
@@ -36,12 +35,16 @@ public class OnlinePlayer {
                     } else if(str.startsWith("SETOPPONENT")){
                         opponent = str.substring(str.indexOf("|") + 1);
                     } else if(str.startsWith("GAME_ABORTED")){
-                        System.out.println("game has been aborted...\nPress [enter] to continue.");
+                        String reason = str.substring(str.indexOf("|") + 1);
+                        System.out.println("Game has been aborted...\nReason: " + reason + "\nPress [enter] to continue.");
                         grid = null;
                         opponent = null;
                         isIdle = true;
                     } else if(str.startsWith("MOV")){
-                        HandleMoveAndUpdate(parsePlayer(str), parseColumn(str));
+                        if(HandleMoveAndUpdate(parsePlayer(str), parseColumn(str)) != 0){
+                            System.out.println("caught error i guess..");
+                            return; //return on error.
+                        }
                         int winner = -1;
                         // i have no idea why this logic works, trial and error!
                         boolean stop = grid.isFull() || (winner = grid.updAndGetWinner()) != -1;
@@ -60,16 +63,17 @@ public class OnlinePlayer {
                         char type;
                         /* why does this logic work?
                         WHO KNOWS? not me. and I don't particularly care. */
+                        // never mind i now know why
                         if(playernum == 1){
                             if(playernum == parsePlayer(str))
-                                type = 'X';
+                                type = playerZeroChar;
                             else
-                                type = 'O';
+                                type = playerOneChar;
                         } else {
                             if(playernum == parsePlayer(str))
-                                type = 'O';
+                                type = playerOneChar;
                             else
-                                type = 'X';
+                                type = playerZeroChar;
                         }
                         if(parsePlayer(str) == playernum)
                             print = opponent + "'s turn (" + type + "): ";
@@ -126,51 +130,54 @@ public class OnlinePlayer {
         return Integer.parseInt(res.substring(res.indexOf(":") + 1, res.indexOf("|")));
     }
 
-    public void HandleMoveAndUpdate(int player, int col) throws Exception {
-        grid.placeThingy(player, col);
-        grid.printGrid();
-        //error happens here sometimes i have no clue why. i can't replicate it myself
-        //hi ms qiu
+    public int HandleMoveAndUpdate(int player, int col) throws Exception {
+            grid.placeThingy(player, col);
+            grid.printGrid();
+            return 0;
+            //error happens here sometimes i have no clue why. i can't replicate it myself
+            //hi ms qiu
     }
 
     public void waitingLoop() throws IOException {
+        int inc = 0;
         while(true){
-        while (isIdle) {
-            String str = "";
-            try {
-                str = sc.nextLine();
-                if (!isIdle) {
-                    break;
-                }
-                if (str.toLowerCase().startsWith("challenge")) {
-                    //wtf is this
-                    if (!str.contains(" ") || str.substring(str.indexOf(" ") + 1).length() == 0) {
-                        System.out.println("enter a player's uid...");
-                        return;
+            while (isIdle) {
+                String str = "";
+                try {
+                    str = sc.nextLine();
+                    if (!isIdle) {
+                        break;
                     }
-                    int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
-                    sendString("CHALLENGE|" + id);
-                } else if (str.toLowerCase().startsWith("view")) {
-                    sendString("VIEW");
-                } else if (str.toLowerCase().startsWith("accept")) {
-                    if (!str.contains(" ")) {
-                        System.out.println("enter a player's uid...");
-                    } else {
+                    if (str.toLowerCase().startsWith("challenge")) {
+                        //wtf is this
+                        if (!str.contains(" ") || str.substring(str.indexOf(" ") + 1).length() == 0) {
+                            System.out.println("enter a player's uid...");
+                            return;
+                        }
                         int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
-                        sendString("ACCEPT|" + id);
+                        sendString("CHALLENGE|" + id);
+                    } else if (str.toLowerCase().startsWith("view")) {
+                        sendString("VIEW");
+                    } else if (str.toLowerCase().startsWith("accept")) {
+                        if (!str.contains(" ")) {
+                            System.out.println("enter a player's uid...");
+                        } else {
+                            int id = Integer.parseInt(str.substring(str.indexOf(" ") + 1));
+                            sendString("ACCEPT|" + id);
+                        }
+                    } else {
+                        sendWaitingData(str);
                     }
-                } else {
-                    sendWaitingData(str);
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
-            } catch (Exception e) {
-                System.out.println(e);
             }
-        }
         GameLoop();
-    }
+        }
     }
 
     public void GameLoop() throws IOException {
+        sendString("SUCCESS");
         grid = new Grid(rows, cols, 4);
         grid.printGrid();
         while(!isIdle){

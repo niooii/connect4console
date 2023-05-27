@@ -8,8 +8,8 @@ public class Grid {
     private int winner = -1;
     private int winningNum;
     PrintWriter printWriter = new PrintWriter(System.out,true);
-    public static final char playerZeroChar = 'X';//◌;
-    public static final char playerOneChar = 'O';//●;
+    public static char playerZeroChar = 'X';//◌;
+    public static char playerOneChar = 'O';//●;
 
     public Grid(int rows, int cols, int winningNum){
         this.winningNum = winningNum;
