@@ -46,7 +46,7 @@ public class OnlinePlayer {
                         }
                         int winner = -1;
                         // i have no idea why this logic works, trial and error!
-                        boolean stop = winner = grid.updAndGetWinner() != -1;
+                        boolean stop = (winner = grid.updAndGetWinner()) != -1;
                         if(stop){
                             if(winner == 2){
                                 sendString("FULL");
