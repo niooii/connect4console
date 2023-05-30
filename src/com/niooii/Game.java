@@ -51,7 +51,11 @@ public class Game {
         int winner = -1;
         while(true){
             if((winner = maingrid.updAndGetWinner()) != -1){
-                System.out.println("Player " + winner + " wins!");
+                if(winner == 2){
+                    System.out.println("It's a tie...");
+                } else {
+                    System.out.println("Player " + winner + " wins!");
+                }
                 return 0;
             }
             System.out.print("Player " + player + " || Enter a column: ");
@@ -75,7 +79,9 @@ public class Game {
         int winner;
         while(true){
             if((winner = maingrid.updAndGetWinner()) != -1){
-                if(winner == 0){
+                if(winner == 2){
+                    System.out.println("It's a tie...");
+                } else if(winner == 0){
                     maingrid.printGrid();
                     System.out.println("You win!");
                 } else {
@@ -127,17 +133,17 @@ public class Game {
                 char temp;
                 if(winner == 0){
                     temp = playerZeroChar;
-                } else
+                } else if(winner == 2){
+                    if(!onlyPrintWon){
+                        grid.printGrid();
+                        System.out.println("It's a tie...\n");
+                    }
+                    return 1;
+                }
+                else
                     temp = playerOneChar;
                 System.out.println("Player " + winner + " (" + temp + ") wins!\n");
                 return 0;
-            }
-            if(grid.isFull()){
-                if(!onlyPrintWon){
-                    grid.printGrid();
-                    System.out.println("It's a tie...\n");
-                }
-                return 1;
             }
             int col;
             col = isComputer ? grid.getComputerMove() : grid.getRandomFreeCol();

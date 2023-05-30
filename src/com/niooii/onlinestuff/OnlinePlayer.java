@@ -46,9 +46,9 @@ public class OnlinePlayer {
                         }
                         int winner = -1;
                         // i have no idea why this logic works, trial and error!
-                        boolean stop = grid.isFull() || (winner = grid.updAndGetWinner()) != -1;
+                        boolean stop = winner = grid.updAndGetWinner() != -1;
                         if(stop){
-                            if(grid.isFull()){
+                            if(winner == 2){
                                 sendString("FULL");
                             } else {
                                 if(winner == playernum){
@@ -60,9 +60,6 @@ public class OnlinePlayer {
                             isIdle = true;
                         }
                         char type;
-                        /* why does this logic work?
-                        WHO KNOWS? not me. and I don't particularly care. */
-                        // never mind i now know why
                         if(playernum == 1){
                             if(playernum == parsePlayer(str))
                                 type = playerZeroChar;
@@ -138,7 +135,6 @@ public class OnlinePlayer {
     }
 
     public void waitingLoop() throws IOException {
-        int inc = 0;
         while(true){
             while (isIdle) {
                 String str = "";
